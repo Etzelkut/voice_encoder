@@ -1,7 +1,11 @@
 # data params
+import os 
+
+local_path = os.path.abspath(os.getcwd())
+
 data_params = {
-    "path_save": "/",
-    "path": "/content/data/wav/",
+    "path_save": os.path.join(local_path, "weights"),
+    "path": os.path.join(local_path, "data/wav/"), 
     "sampling_rate": 16000,
     "max_seconds": 8, 
     "max_length": None,

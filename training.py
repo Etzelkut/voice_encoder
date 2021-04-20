@@ -20,7 +20,7 @@ def testing():
     hidden = model.forward(x, mask)
     print(hidden.shape)
 
-def train(save_weights = hparams_encoder["path_save"], seed_v = 42):
+def train(save_weights = hparams_encoder["data_params"]["path_save"], seed_v = 42):
     seed_v = seed_v
     root_dir = save_weights
     naming = "encoder_try_1"
