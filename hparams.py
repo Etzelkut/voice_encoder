@@ -1,5 +1,6 @@
 # data params
 data_params = {
+    "path_save": "/",
     "path": "/content/data/wav/",
     "sampling_rate": 16000,
     "max_seconds": 8, 

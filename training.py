@@ -10,17 +10,17 @@ def testing():
     dataset_pl.setup()
 
     for batch in dataset_pl.train_dataloader():
-    x, mask, speakers = batch
-    print(x, mask, speakers)
-    print(x.shape, mask.shape)
-    break
+        x, mask, speakers = batch
+        print(x, mask, speakers)
+        print(x.shape, mask.shape)
+        break
     del dataset_pl
     re_dict_check = hparams_encoder.copy()
     model = Voice_Encoder_pl(re_dict_check)
     hidden = model.forward(x, mask)
     print(hidden.shape)
 
-def train(save_weights, seed_v = 42):
+def train(save_weights = hparams_encoder["path_save"], seed_v = 42):
     seed_v = seed_v
     root_dir = save_weights
     naming = "encoder_try_1"
