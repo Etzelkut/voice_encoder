@@ -18,8 +18,7 @@ pip install torchaudio
 pip install pytorch-lightning
 #==3.4.0
 
-conda update --all
-pip install --upgrade tensorflow==2.0.0-beta1
+conda remove wrapt
 
 pip install comet-ml
 
