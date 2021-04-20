@@ -44,7 +44,7 @@ learning_params = {
     #
     "add_sch": False,
     #
-    "epochs": 10, #
+    "epochs": 20, #
 }
 
 hparams_encoder = {
