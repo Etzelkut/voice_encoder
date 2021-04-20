@@ -9,12 +9,12 @@ data_params = {
     "sampling_rate": 16000,
     "max_seconds": 8, 
     "max_length": None,
-    "utterences_per_speaker": 5, # M
+    "utterences_per_speaker": 10, # M
     "full_data": True,
     "window_size": None,
     "step_size": None,
     "shuffle_speakers": True,
-    "number_of_speakers": 10, # N
+    "number_of_speakers": 20, # N
     "num_workers": 2,
     "dataloader_shuffle": True,
 }

@@ -17,6 +17,7 @@ import torch
 from transformers import Wav2Vec2PreTrainedModel, Wav2Vec2Model, Wav2Vec2Processor
 
 from ge2e import GE2ELoss
+import torch.nn as nn
 
 device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
 
