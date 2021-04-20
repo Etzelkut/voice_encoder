@@ -52,7 +52,7 @@ def train(save_weights = hparams_encoder["data_params"]["path_save"], seed_v = 4
                         #gradient_clip_val=0.5,
                         check_val_every_n_epoch=1,
                         #early_stop_callback=True,
-                        max_epochs = re_dict["training"]["epochs"],
+                        max_epochs = hparams_encoder["training"]["epochs"],
                         progress_bar_refresh_rate = 0,
                         deterministic=True,)
 
