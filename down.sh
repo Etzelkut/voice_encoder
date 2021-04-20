@@ -17,6 +17,10 @@ pip install torchaudio
 #==1.2.2
 pip install pytorch-lightning
 #==3.4.0
+
+conda update --all
+pip install --upgrade tensorflow==2.0.0-beta1
+
 pip install comet-ml
 
 unzip -qq vox1_dev_wav.zip -d data
