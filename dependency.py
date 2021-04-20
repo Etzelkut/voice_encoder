@@ -19,6 +19,9 @@ from transformers import Wav2Vec2PreTrainedModel, Wav2Vec2Model, Wav2Vec2Process
 from ge2e import GE2ELoss
 import torch.nn as nn
 
+from adabelief_pytorch import AdaBelief
+from ranger_adabelief import RangerAdaBelief
+
 device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
 
 def seed_e(seed_value):
