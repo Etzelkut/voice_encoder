@@ -57,6 +57,7 @@ def train(save_weights = hparams_encoder["data_params"]["path_save"], seed_v = 4
                         deterministic=True,)
 
     trainer.fit(proj_a, dataset_pl)
-
+    print("saving")
     checkpoint_name = os.path.join(root_dir, naming + '.ckpt')
     trainer.save_checkpoint(checkpoint_name)   
+    print("end saving")
