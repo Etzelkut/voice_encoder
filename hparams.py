@@ -13,9 +13,9 @@ data_params = {
     "full_data": True,
     "window_size": None,
     "step_size": None,
-    "shuffle_speakers": True,
+    "shuffle_speakers": False,
     "number_of_speakers": 20, # N
-    "num_workers": 20,
+    "num_workers": 4,
     "dataloader_shuffle": True,
 }
 
@@ -33,20 +33,20 @@ model_params = {
 # learning params
 
 learning_params = {
-    "block": True,
-    "start_learning_feature_epoch": None,
+    "block": False,
+    "start_learning_feature_epoch": 60,
     
     "optimizer": "adamW", # "belief", "ranger_belief", "adam", adamW
-    "lr": 3e-4, #
+    "lr": 5e-3, #
     "eplison_belief": 1e-16,
     "beta": [0.9, 0.999], # not used
     "weight_decouple": True, 
     "weight_decay": 1e-4,
     "rectify": True,
     #
-    "add_sch": False,
+    "add_sch": True,
     #
-    "epochs": 40, #
+    "epochs": 100, #
 }
 
 hparams_encoder = {

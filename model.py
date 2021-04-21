@@ -24,12 +24,15 @@ class Voice_Encoder_pl(pl.LightningModule):
         if self.model_params["enable_fc2"]:
             self.fc2 = nn.Linear(in_features = self.model_params["fc1_dim"], out_features = self.model_params["fc2_dim"])
         
-        self.avpool = nn.AvgPool1d(5, stride=3)
+        self.avpool = nn.AvgPool1d(kernel_size = 5)
         self.fc3 = nn.Linear(in_features = self.model_params["fc2_dim"], out_features = self.model_params["embeding"])
 
         self.criterion = GE2ELoss(init_w=10.0, init_b=-5.0, loss_method='softmax')
 
         print(self.parameters())
+        
+        self.check_times = True
+        self.check_enable_wav2vec = False
 
     def forward(self, audio, attention_mask):
 
@@ -38,6 +41,7 @@ class Voice_Encoder_pl(pl.LightningModule):
             with torch.no_grad():
                 hidden = self.feature_extractor(audio, attention_mask).last_hidden_state
         else:
+            self.check_enable_wav2vec = True
             self.feature_extractor.train()
             hidden = self.feature_extractor(audio, attention_mask).last_hidden_state
 
@@ -114,6 +118,10 @@ class Voice_Encoder_pl(pl.LightningModule):
         self.log('epoch_now', self.current_epoch, on_step=False, on_epoch=True, logger=True)
         (oppp) =  self.optimizers(use_pl_optimizer=True)
         self.log('lr_now', self.get_lr_inside(oppp), on_step=False, on_epoch=True, logger=True)
+        
+        if self.check_enable_wav2vec and self.check_times:
+            self.check_times = False
+            print("check!!!!!!!!!!!!!!!!!!!!!")
 
 
     def validation_step(self, batch, batch_idx):
