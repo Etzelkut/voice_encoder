@@ -34,10 +34,10 @@ model_params = {
 
 learning_params = {
     "block": False,
-    "start_learning_feature_epoch": 60,
+    "start_learning_feature_epoch": 0,
     
-    "optimizer": "adamW", # "belief", "ranger_belief", "adam", adamW
-    "lr": 5e-3, #
+    "optimizer": "belief", # "belief", "ranger_belief", "adam", adamW
+    "lr": 1e-3, #
     "eplison_belief": 1e-16,
     "beta": [0.9, 0.999], # not used
     "weight_decouple": True, 
