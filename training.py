@@ -23,7 +23,7 @@ def testing():
 def train(save_weights = hparams_encoder["data_params"]["path_save"], seed_v = 42):
     seed_v = seed_v
     root_dir = save_weights
-    naming = "encoder_try_1"
+    naming = "encoder_try_2"
 
     seed_e(seed_v)
 
