@@ -22,9 +22,11 @@ data_params = {
 # model params
 
 model_params = {
-    "fc1_dim": 512,
+    "enable_fc1": False,
+    "fc1_dim": 768,
+    "enable_fc2": True,
     "fc2_dim": 512,
-    "embeding": 256
+    "embeding": 512
 }
 
 
@@ -34,7 +36,7 @@ learning_params = {
     "block": True,
     "start_learning_feature_epoch": None,
     
-    "optimizer": "belief", # "belief", "ranger_belief", "adam", adamW
+    "optimizer": "adamW", # "belief", "ranger_belief", "adam", adamW
     "lr": 3e-4, #
     "eplison_belief": 1e-16,
     "beta": [0.9, 0.999], # not used
@@ -44,7 +46,7 @@ learning_params = {
     #
     "add_sch": False,
     #
-    "epochs": 20, #
+    "epochs": 40, #
 }
 
 hparams_encoder = {

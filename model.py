@@ -18,31 +18,40 @@ class Voice_Encoder_pl(pl.LightningModule):
         #    self.time_drop = torchaudio.transforms.TimeMasking(time_mask_param=self.learning_params["time_l"])
         # self.check_random_mixup = False
         self.feature_extractor = Wav2Vec2Model.from_pretrained("facebook/wav2vec2-base-960h")
-        self.fc1 = nn.Linear(in_features = 768, out_features = self.model_params["fc1_dim"])
+        
+        if self.model_params["enable_fc1"]:
+            self.fc1 = nn.Linear(in_features = 768, out_features = self.model_params["fc1_dim"])
+        if self.model_params["enable_fc2"]:
+            self.fc2 = nn.Linear(in_features = self.model_params["fc1_dim"], out_features = self.model_params["fc2_dim"])
+        
         self.avpool = nn.AvgPool1d(5, stride=3)
-        self.fc2 = nn.Linear(in_features = self.model_params["fc1_dim"], out_features = self.model_params["fc2_dim"])
         self.fc3 = nn.Linear(in_features = self.model_params["fc2_dim"], out_features = self.model_params["embeding"])
 
         self.criterion = GE2ELoss(init_w=10.0, init_b=-5.0, loss_method='softmax')
 
         print(self.parameters())
-        
-    def forward(self, audio, attention_mask):
-      if self.learning_params["block"] or (self.current_epoch < self.learning_params["start_learning_feature_epoch"]):
-        self.feature_extractor.eval()
-        with torch.no_grad():
-          hidden = self.feature_extractor(audio, attention_mask).last_hidden_state
-      else:
-        self.feature_extractor.train()
-        hidden = self.feature_extractor(audio, attention_mask).last_hidden_state
 
-      hidden = self.fc1(hidden)
-      hidden = hidden.transpose(1,2).contiguous()
-      hidden = self.avpool(hidden)
-      hidden = hidden.transpose(1,2).contiguous()
-      hidden = self.fc2(hidden)
-      hidden = torch.sum(hidden, dim = 1)
-      hidden = self.fc3(hidden)
+    def forward(self, audio, attention_mask):
+        if self.learning_params["block"] or (self.current_epoch < self.learning_params["start_learning_feature_epoch"]):
+            self.feature_extractor.eval()
+            with torch.no_grad():
+                hidden = self.feature_extractor(audio, attention_mask).last_hidden_state
+        else:
+            self.feature_extractor.train()
+            hidden = self.feature_extractor(audio, attention_mask).last_hidden_state
+
+        if self.model_params["enable_fc1"]:
+            hidden = self.fc1(hidden)
+
+        hidden = hidden.transpose(1,2).contiguous()
+        hidden = self.avpool(hidden)
+        hidden = hidden.transpose(1,2).contiguous()
+        
+        if self.model_params["enable_fc2"]:
+            hidden = self.fc2(hidden)
+        
+        hidden = torch.mean(hidden, dim = 1)
+        hidden = self.fc3(hidden)
 
       return hidden
     
