@@ -32,6 +32,7 @@ class Voice_Encoder_pl(pl.LightningModule):
         print(self.parameters())
 
     def forward(self, audio, attention_mask):
+
         if self.learning_params["block"] or (self.current_epoch < self.learning_params["start_learning_feature_epoch"]):
             self.feature_extractor.eval()
             with torch.no_grad():
@@ -52,8 +53,7 @@ class Voice_Encoder_pl(pl.LightningModule):
         
         hidden = torch.mean(hidden, dim = 1)
         hidden = self.fc3(hidden)
-
-      return hidden
+        return hidden
     
 
     def configure_optimizers(self):
