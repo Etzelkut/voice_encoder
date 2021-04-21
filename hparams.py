@@ -15,7 +15,7 @@ data_params = {
     "step_size": None,
     "shuffle_speakers": True,
     "number_of_speakers": 20, # N
-    "num_workers": 2,
+    "num_workers": 20,
     "dataloader_shuffle": True,
 }
 
