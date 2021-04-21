@@ -25,6 +25,8 @@ class Voice_Encoder_pl(pl.LightningModule):
 
         self.criterion = GE2ELoss(init_w=10.0, init_b=-5.0, loss_method='softmax')
 
+        print(self.parameters())
+        
     def forward(self, audio, attention_mask):
       if self.learning_params["block"] or (self.current_epoch < self.learning_params["start_learning_feature_epoch"]):
         self.feature_extractor.eval()
