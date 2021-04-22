@@ -24,7 +24,7 @@ def testing():
 def train(save_weights = hparams_encoder["data_params"]["path_save"], seed_v = 42):
     seed_v = seed_v
     root_dir = save_weights
-    naming = "eerlow"
+    naming = "eerlow2"
 
     seed_e(seed_v)
 
@@ -54,7 +54,7 @@ def train(save_weights = hparams_encoder["data_params"]["path_save"], seed_v = 4
                                       mode='min',
                                       )
 
-    every_epoch = CheckpointEveryNSteps(save_step_frequency = steps_per_epoch*2, use_modelcheckpoint_filename = True, pathh=root_dir)
+    every_epoch = CheckpointEveryNSteps(save_step_frequency = steps_per_epoch*2, use_modelcheckpoint_filename = False, pathh=root_dir, prefix=naming+"N-Step-Checkpoint")
 
     proj_a = Voice_Encoder_pl(hparams_encoder, steps_per_epoch = steps_per_epoch)
 
