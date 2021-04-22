@@ -7,16 +7,16 @@ data_params = {
     "path_save": os.path.join(local_path, "weights"),
     "path": os.path.join(local_path, "data/wav/"), 
     "sampling_rate": 16000,
-    "max_seconds": 8, 
+    "max_seconds": 4, 
     "max_length": None,
     "utterences_per_speaker": 10, # M
     "full_data": True,
     "window_size": None,
     "step_size": None,
-    "shuffle_speakers": True,
-    "number_of_speakers": 20, # N
+    "shuffle_speakers": False,
+    "number_of_speakers": 6, # N
     "num_workers": 4,
-    "dataloader_shuffle": False,
+    "dataloader_shuffle": True,
 }
 
 # model params
@@ -33,7 +33,7 @@ model_params = {
 # learning params
 
 learning_params = {
-    "block": True,
+    "block": False,
     "start_learning_feature_epoch": 0,
     
     "optimizer": "adam", # "belief", "ranger_belief", "adam", adamW
