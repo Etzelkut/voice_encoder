@@ -1,5 +1,12 @@
 from dependency import *
 
+class Mish(nn.Module):
+    def __init__(self):
+        super(Mish, self).__init__()
+    def forward(self, x):
+        return x * torch.tanh(F.softplus(x))
+
+
 class Voice_Encoder_pl(pl.LightningModule):
     def __init__(self, re_dict, *args, **kwargs): #*args, **kwargs hparams, steps_per_epoch
         super().__init__()
@@ -19,13 +26,17 @@ class Voice_Encoder_pl(pl.LightningModule):
         # self.check_random_mixup = False
         self.feature_extractor = Wav2Vec2Model.from_pretrained("facebook/wav2vec2-base-960h")
         
-        if self.model_params["enable_fc1"]:
-            self.fc1 = nn.Linear(in_features = 768, out_features = self.model_params["fc1_dim"])
-        if self.model_params["enable_fc2"]:
-            self.fc2 = nn.Linear(in_features = self.model_params["fc1_dim"], out_features = self.model_params["fc2_dim"])
+        #if self.model_params["enable_fc1"]:
+        #    self.fc1 = nn.Linear(in_features = 768, out_features = self.model_params["fc1_dim"])
+        #if self.model_params["enable_fc2"]:
+        #    self.fc2 = nn.Linear(in_features = self.model_params["fc1_dim"], out_features = self.model_params["fc2_dim"])
         
-        self.avpool = nn.AvgPool1d(kernel_size = 5)
-        self.fc3 = nn.Linear(in_features = self.model_params["fc2_dim"], out_features = self.model_params["embeding"])
+        #self.avpool = nn.AvgPool1d(kernel_size = 5)
+        #self.fc3 = nn.Linear(in_features = self.model_params["fc2_dim"], out_features = self.model_params["embeding"])
+
+        self.fcf = nn.Linear(in_features = 768, out_features = 512)
+        self.mish = Mish()
+        self.fcf2 = nn.Linear(in_features = 512, out_features = 512)
 
         self.criterion = GE2ELoss(init_w=10.0, init_b=-5.0, loss_method='softmax')
 
@@ -33,6 +44,7 @@ class Voice_Encoder_pl(pl.LightningModule):
         
         self.check_times = True
         self.check_enable_wav2vec = False
+
 
     def forward(self, audio, attention_mask):
 
@@ -45,18 +57,22 @@ class Voice_Encoder_pl(pl.LightningModule):
             self.feature_extractor.train()
             hidden = self.feature_extractor(audio, attention_mask).last_hidden_state
 
-        if self.model_params["enable_fc1"]:
-            hidden = self.fc1(hidden)
+        #if self.model_params["enable_fc1"]:
+        #    hidden = self.fc1(hidden)
 
-        hidden = hidden.transpose(1,2).contiguous()
-        hidden = self.avpool(hidden)
-        hidden = hidden.transpose(1,2).contiguous()
+        #hidden = hidden.transpose(1,2).contiguous()
+        #hidden = self.avpool(hidden)
+        #hidden = hidden.transpose(1,2).contiguous()
         
-        if self.model_params["enable_fc2"]:
-            hidden = self.fc2(hidden)
+        #if self.model_params["enable_fc2"]:
+        #    hidden = self.fc2(hidden)
         
         hidden = torch.mean(hidden, dim = 1)
-        hidden = self.fc3(hidden)
+        #hidden = self.fc3(hidden)'
+
+        hidden = self.fcf(hidden)
+        hidden = self.fcf2(self.mish(hidden))
+
         return hidden
     
 
