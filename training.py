@@ -24,17 +24,17 @@ def testing():
 def train(save_weights = hparams_encoder["data_params"]["path_save"], seed_v = 42):
     seed_v = seed_v
     root_dir = save_weights
-    naming = "encoder_try_no_long"
+    naming = "encoder_try_long_no"
 
     seed_e(seed_v)
 
     comet_logger = CometLogger(
-    save_dir='/content/log/',
-    api_key="23CU99n7TeyZdPeegNDlQ5aHf",
-    project_name="encoder-voice",
-    workspace="etzelkut",
-    # rest_api_key=os.environ["COMET_REST_KEY"], # Optional
-    experiment_name = naming, # Optional
+        save_dir='/content/log/',
+        api_key="23CU99n7TeyZdPeegNDlQ5aHf",
+        project_name="encoder-voice",
+        workspace="etzelkut",
+        # rest_api_key=os.environ["COMET_REST_KEY"], # Optional
+        experiment_name = naming, # Optional
     )
     #
 
