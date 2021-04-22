@@ -326,8 +326,8 @@ class Voice_Encoder_pl(pl.LightningModule):
         verification_batch = verification_batch[perm]
         verification_mask_batch = verification_mask_batch[perm]
 
-        enrollment_embeddings = model(enrollment_batch, enrollment_mask_batch)
-        verification_embeddings = model(verification_batch, verification_mask_batch)
+        enrollment_embeddings = self(enrollment_batch, enrollment_mask_batch)
+        verification_embeddings = self(verification_batch, verification_mask_batch)
         
         verification_embeddings = verification_embeddings[unperm]
 
