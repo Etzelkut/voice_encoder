@@ -361,7 +361,7 @@ class Voice_Encoder_pl(pl.LightningModule):
         #self.log('FRR', FRR, on_step=True, on_epoch=True, logger=True)
         #self.log('FAR', FAR, on_step=True, on_epoch=True, logger=True)
         #self.log('thres', thres, on_step=True, on_epoch=True, logger=True)
-        self.log('EER', EER, on_step=True, on_epoch=True, logger=True)
+        self.log('EER', EER, on_step=False, on_epoch=True, logger=True)
         self.log('val_loss', loss, on_step=False, on_epoch=True, logger=True) #prog_bar=True,
         return {'val_loss': loss}
 
