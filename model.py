@@ -305,11 +305,12 @@ class Voice_Encoder_pl(pl.LightningModule):
 
         assert self.hparams["data_params"]["utterences_per_speaker"] % 2 == 0
         
-        N = self.hparams["data_params"]["number_of_speakers"]
         M = self.hparams["data_params"]["utterences_per_speaker"]
-        print(x.shape, N, M)
-        x = torch.reshape(x, (N, M, x.shape[1]))
-        mask = torch.reshape(mask, (N, M, x.shape[2]))
+        N = int(x.shape[0]/M)#self.hparams["data_params"]["number_of_speakers"]
+        
+        print(x.shape, N, M, speakers)
+        x = torch.reshape(x, (-1, M, x.shape[1]))
+        mask = torch.reshape(mask, (-1, M, x.shape[2]))
 
         enrollment_batch, verification_batch = torch.split(x, int(x.size(1)/2), dim=1)
         enrollment_mask_batch, verification_mask_batch = torch.split(mask, int(mask.size(1)/2), dim=1)
