@@ -308,7 +308,6 @@ class Voice_Encoder_pl(pl.LightningModule):
         M = self.hparams["data_params"]["utterences_per_speaker"]
         N = int(x.shape[0]/M)#self.hparams["data_params"]["number_of_speakers"]
         
-        print(x.shape, N, M, speakers)
         x = torch.reshape(x, (-1, M, x.shape[1]))
         mask = torch.reshape(mask, (-1, M, x.shape[2]))
 
