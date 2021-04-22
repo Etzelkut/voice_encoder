@@ -4,6 +4,7 @@ from dataset import Dataset_vox
 from model import Voice_Encoder_pl
 from hparams import hparams_encoder
 
+
 def testing():
     dataset_pl = Dataset_vox(hparams_encoder["data_params"])
     dataset_pl.prepare_data()
@@ -42,15 +43,28 @@ def train(save_weights = hparams_encoder["data_params"]["path_save"], seed_v = 4
     dataset_pl.setup()
     steps_per_epoch = int(len(dataset_pl.train_dataloader()))
     print(steps_per_epoch)
+
+
+    checkpoint_callback = ModelCheckpoint(
+                                      monitor='val_loss',
+                                      save_last=True, 
+                                      dirpath= root_dir,#os.path.join(path, "/checkpoints"),
+                                      filename= naming + 'l{epoch}.ckpt',
+                                      save_top_k=1,
+                                      mode='min',
+                                      )
+
+    every_epoch = CheckpointEveryNSteps(save_step_frequency = steps_per_epoch*2, use_modelcheckpoint_filename = True, pathh=root_dir)
+
     proj_a = Voice_Encoder_pl(hparams_encoder, steps_per_epoch = steps_per_epoch)
 
-    trainer = Trainer(#callbacks=[lr_monitor],
+    trainer = Trainer(callbacks=[checkpoint_callback, every_epoch],
                         logger=comet_logger,
                         gpus=1,
                         profiler=True,
+                        check_val_every_n_epoch=2,
                         #auto_lr_find=True, #set hparams
                         #gradient_clip_val=0.5,
-                        check_val_every_n_epoch=1,
                         #early_stop_callback=True,
                         max_epochs = hparams_encoder["training"]["epochs"],
                         progress_bar_refresh_rate = 0,

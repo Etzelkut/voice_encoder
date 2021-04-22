@@ -37,7 +37,7 @@ learning_params = {
     "start_learning_feature_epoch": 0,
     
     "optimizer": "adam", # "belief", "ranger_belief", "adam", adamW
-    "lr": 6e-4, #
+    "lr": 9e-4, #
     "eplison_belief": 1e-16,
     "beta": [0.9, 0.999], # not used
     "weight_decouple": True, 
