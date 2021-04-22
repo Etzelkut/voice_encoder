@@ -24,7 +24,7 @@ def testing():
 def train(save_weights = hparams_encoder["data_params"]["path_save"], seed_v = 42):
     seed_v = seed_v
     root_dir = save_weights
-    naming = "encoder_try_long_no"
+    naming = "eerlow"
 
     seed_e(seed_v)
 
@@ -46,7 +46,7 @@ def train(save_weights = hparams_encoder["data_params"]["path_save"], seed_v = 4
 
 
     checkpoint_callback = ModelCheckpoint(
-                                      monitor='val_loss',
+                                      monitor='EER',
                                       save_last=True, 
                                       dirpath= root_dir,#os.path.join(path, "/checkpoints"),
                                       filename= naming + 'l{epoch}.ckpt',
