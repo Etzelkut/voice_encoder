@@ -309,7 +309,7 @@ class Voice_Encoder_pl(pl.LightningModule):
         M = self.hparams["data_params"]["utterences_per_speaker"]
         print(x.shape, N, M)
         x = torch.reshape(x, (N, M, x.shape[1]))
-        mask = torch.reshape(mask, (N, M, x.shape[1]))
+        mask = torch.reshape(mask, (N, M, x.shape[2]))
 
         enrollment_batch, verification_batch = torch.split(x, int(x.size(1)/2), dim=1)
         enrollment_mask_batch, verification_mask_batch = torch.split(mask, int(mask.size(1)/2), dim=1)
