@@ -5,6 +5,8 @@ local_path = os.path.abspath(os.getcwd())
 
 data_params = {
     "path_save": os.path.join(local_path, "weights"),
+    "path_test": os.path.join(local_path, "test"),
+    
     "path": os.path.join(local_path, "data/wav/"), 
     "sampling_rate": 16000,
     "max_seconds": 4, 

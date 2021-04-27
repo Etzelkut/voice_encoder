@@ -26,6 +26,10 @@ from ranger_adabelief import RangerAdaBelief
 import torch.autograd as grad
 import torch.nn.functional as F
 
+import speechbrain.utils.metric_stats as ms
+
+
+
 device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
 
 def seed_e(seed_value):
@@ -75,4 +79,5 @@ class CheckpointEveryNSteps(pl.Callback):
             else:
                 filename = f"{self.prefix}_{epoch}_{global_step}.ckpt"
             ckpt_path = os.path.join(self.pathh, filename)
+            print("we are here!!!")
             trainer.save_checkpoint(ckpt_path)

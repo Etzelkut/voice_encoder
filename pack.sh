@@ -15,3 +15,4 @@ conda remove wrapt
 
 pip install comet-ml
 
+!pip install speechbrain

@@ -45,20 +45,20 @@ def train(save_weights = hparams_encoder["data_params"]["path_save"], seed_v = 4
     print(steps_per_epoch)
 
 
-    checkpoint_callback = ModelCheckpoint(
-                                      monitor='EER',
-                                      save_last=True, 
-                                      dirpath= root_dir,#os.path.join(path, "/checkpoints"),
-                                      filename= naming + 'l{epoch}.ckpt',
-                                      save_top_k=1,
-                                      mode='min',
-                                      )
+    #checkpoint_callback = ModelCheckpoint(
+    #                                  monitor='EER',
+    #                                  save_last=True, 
+    #                                  dirpath= root_dir,#os.path.join(path, "/checkpoints"),
+    #                                  filename= naming + 'l{epoch}.ckpt',
+    #                                  save_top_k=1,
+    #                                  mode='min',
+    #                                  )
 
     every_epoch = CheckpointEveryNSteps(save_step_frequency = steps_per_epoch*2, use_modelcheckpoint_filename = False, pathh=root_dir, prefix=naming+"N-Step-Checkpoint")
 
     proj_a = Voice_Encoder_pl(hparams_encoder, steps_per_epoch = steps_per_epoch)
 
-    trainer = Trainer(callbacks=[checkpoint_callback, every_epoch],
+    trainer = Trainer(callbacks=[every_epoch],  # checkpoint_callback
                         logger=comet_logger,
                         gpus=1,
                         profiler=True,
@@ -75,3 +75,6 @@ def train(save_weights = hparams_encoder["data_params"]["path_save"], seed_v = 4
     checkpoint_name = os.path.join(root_dir, naming + '.ckpt')
     trainer.save_checkpoint(checkpoint_name)   
     print("end saving")
+
+if __name__ == "__main__":
+    train()
