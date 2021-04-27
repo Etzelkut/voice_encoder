@@ -31,6 +31,7 @@ import speechbrain as sb
 device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
 
 def seed_e(seed_value):
+  print("seeded")
   seed_everything(seed_value)
   random.seed(seed_value)
   np.random.seed(seed_value) 

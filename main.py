@@ -26,7 +26,7 @@ def train(save_weights = hparams_encoder["data_params"]["path_save"], seed_v = 4
     root_dir = save_weights
     naming = "eerlow4"
 
-    seed_e(seed_v)
+    #seed_e(seed_v)
 
     comet_logger = CometLogger(
         save_dir='/content/log/',
