@@ -6,10 +6,10 @@ local_path = os.path.abspath(os.getcwd())
 data_params = {
     "path_save": os.path.join(local_path, "weights"),
     "path_test": os.path.join(local_path, "test"),
-    
+
     "path": os.path.join(local_path, "data/wav/"), 
     "sampling_rate": 16000,
-    "max_seconds": 4, 
+    "max_seconds": 8, 
     "max_length": None,
     "utterences_per_speaker": 10, # M
     "full_data": True,
@@ -25,10 +25,10 @@ data_params = {
 
 model_params = {
     "enable_fc1": False,
-    "fc1_dim": 768,
-    "enable_fc2": True,
-    "fc2_dim": 512,
-    "embeding": 512
+    "fc1_dim": 1,
+    "enable_fc2": False,
+    "fc2_dim": 1,
+    "embeding": 1
 }
 
 
@@ -38,8 +38,8 @@ learning_params = {
     "block": False,
     "start_learning_feature_epoch": 0,
     
-    "optimizer": "adam", # "belief", "ranger_belief", "adam", adamW
-    "lr": 9e-4, #
+    "optimizer": "adamW", # "belief", "ranger_belief", "adam", adamW
+    "lr": 1e-4, #
     "eplison_belief": 1e-16,
     "beta": [0.9, 0.999], # not used
     "weight_decouple": True, 
@@ -48,7 +48,7 @@ learning_params = {
     #
     "add_sch": True,
     #
-    "epochs": 120, #
+    "epochs": 30, #
 }
 
 hparams_encoder = {
