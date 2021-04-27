@@ -15,8 +15,8 @@ conda remove wrapt
 
 pip install comet-ml
 
-git clone https://github.com/speechbrain/speechbrain.git
-cd speechbrain
-pip install -r requirements.txt
-pip install --editable .
-cd ..
+#git clone https://github.com/speechbrain/speechbrain.git
+#cd speechbrain
+#pip install -r requirements.txt
+#pip install --editable .
+#cd ..
