@@ -9,9 +9,9 @@ data_params = {
 
     "path": os.path.join(local_path, "data/wav/"), 
     "sampling_rate": 16000,
-    "max_seconds": 8, 
+    "max_seconds": 6, 
     "max_length": None,
-    "utterences_per_speaker": 8, # M
+    "utterences_per_speaker": 10, # M
     "full_data": True,
     "window_size": None,
     "step_size": None,
