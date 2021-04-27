@@ -24,7 +24,7 @@ def testing():
 def train(save_weights = hparams_encoder["data_params"]["path_save"], seed_v = 42):
     seed_v = seed_v
     root_dir = save_weights
-    naming = "eerlow4"
+    naming = "eerlow5"
 
     #seed_e(seed_v)
 

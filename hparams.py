@@ -38,17 +38,17 @@ learning_params = {
     "block": False,
     "start_learning_feature_epoch": 0,
     
-    "optimizer": "adamW", # "belief", "ranger_belief", "adam", adamW
-    "lr": 1e-4, #
+    "optimizer": "adam", # "belief", "ranger_belief", "adam", adamW
+    "lr": 8e-4, #
     "eplison_belief": 1e-16,
     "beta": [0.9, 0.999], # not used
     "weight_decouple": True, 
     "weight_decay": 1e-4,
     "rectify": True,
     #
-    "add_sch": False,
+    "add_sch": True,
     #
-    "epochs": 30, #
+    "epochs": 120, #
 }
 
 hparams_encoder = {
