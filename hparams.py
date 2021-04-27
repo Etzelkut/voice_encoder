@@ -46,7 +46,7 @@ learning_params = {
     "weight_decay": 1e-4,
     "rectify": True,
     #
-    "add_sch": True,
+    "add_sch": False,
     #
     "epochs": 30, #
 }
