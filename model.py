@@ -154,16 +154,16 @@ class Voice_Encoder_pl(pl.LightningModule):
         pos = scores[np.where(labels == 1)]
         neg = scores[np.where(labels == 0)]
 
-        eers = sEER(pos, neg)
+        eers, threshold = sEER(pos, neg)
         self.log('val_eer', eers, on_step=True, on_epoch=False, logger=True) # prog_bar=True
         
         return {'pos': pos, 'neg': neg}
 
     def validation_epoch_end(self, outputs):
-        pos = torch.stack([x['pos'] for x in outputs]).view(-1)
-        neg = torch.stack([x['neg'] for x in outputs]).view(-1)
+        pos = torch.cat([x['pos'] for x in outputs])
+        neg = torch.cat([x['neg'] for x in outputs])
 
-        eers = sEER(pos, neg)
+        eers, threshold = sEER(pos, neg)
         self.log('eer_test', eers, on_step=False, on_epoch=True, logger=True) 
 
 """
